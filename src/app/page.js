@@ -1,7 +1,7 @@
-export default function Pokemon() {
+export default function Home() {
   return (
     <main>
-      <h1>Pokemon Page</h1>
+      <h1>Home</h1>
     </main>
   );
 }
