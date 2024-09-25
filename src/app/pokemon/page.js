@@ -1,7 +1,7 @@
 "use client";
 
 import pokeStyles from "./pokemon.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Pokemon data
 /**
@@ -24,6 +24,22 @@ export default function Pokemon() {
    */
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [pokeEncounters,
+    setPokemonEncounters] = useState([]);
+
+  console.log("pokemonEncounters", pokeEncounters);
+
+  const fetchPokemonEncounters = async () => {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=5');
+    const data = await response.json();
+    setPokemonEncounters(data.results);
+  };
+
+  useEffect(() => {
+    fetchPokemonEncounters();
+  }, []);
+
+
   function changeSearchTerm(e) {
     setSearchTerm(e.currentTarget.value);
   }
@@ -41,6 +57,25 @@ export default function Pokemon() {
     }
   }
 
+  // useEffect(function () {
+  //   if (pokemon.id) {
+  //     fetch(
+  //       `https://pokeapi.co/api/v2/pokemon/${pokemon.id}/encounters`
+  //     ).then((rawData) => {
+  //       return rawData.json();
+  //     })
+  //       .then((pokeEncounters) => {
+
+  //         console.log(pokeEncounters);
+
+  //       })
+  //       .catch((e) => {
+  //         console.warn(e);
+  //       });
+  //   }
+  // },
+  //   [pokemon]
+  // );
   return (
     <main>
       <h1>Pokemon Page</h1>
